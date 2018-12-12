@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+     <script src="JSONdata.js"></script>
+         <title>Media Project</title>
+    <style>
+        .contianer{
+            display: flex;
+            flex-wrap: wrap;
+             justify-content: center;
+             align-content:space-around;
+            
+        }
+        #prv{
+            
+            width: 270px;
+            height: 350px;
+            border:2px solid black;   
+            padding: 10px;
+            margin: 30px;
+            text-align: center;
+            -webkit-box-shadow: 33px 24px 5px 0px rgba(0,0,0,0.75);
+            -moz-box-shadow: 33px 24px 5px 0px rgba(0,0,0,0.75);
+            box-shadow: 33px 24px 5px 0px rgba(0,0,0,0.75);
+        }
+        h1, h2, h3{
+            text-align: center;
+        }
+        
+        #imgcont{
+            text-align: center;
+            padding: 3%;
+        }
+        img{
+            max-width: 45%;
+            max-height: 40%;
+            margin: auto;
+            
+        }
+       
+     p span{
+            font-weight: 600;
+        }
+       
+
+
+/* Modal Content/Box */
+        
+.modal-content {
+     
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+    height: 60%
+    z-index:100;
+    text-align: center;
+    
+}
+
+/* The Close Button (x) */
+        .modal-content img {
+            width: 60%;
+            z-index:100;
+            margin: auto;
+            padding: 2.5%
+        }
+
+
+    </style>
+    
+          <script>
+           $(document).ready(function(){
+           // get the objects from local storage
+		allRecords = localStorage.getItem("movieRecords");
+        // convert JSON Object to Javascript object
+      	var records = JSON.parse(allRecords);
+     // add counter
+          i =0;
+     // add loop to read the objects
+    records.movies.forEach(function(item)
+    {     
+      var listAdd = "";
+      // create variable to exract the array
+        var categorie = records.movies[i].categories;
+          // add inner counter
+		    var j=0;
+     
+		     $.each( categorie, function( ){
+				
+              listAdd = listAdd +  categorie[j]  ;
+              
+				 j++;
+              categorie.join("<br/>") 
+}); 
+                
+          $(".modelcon").append ( 
+                             "<div id='id01"+[i]+"' class='modal'>"+ 
+                              "<div class='modal-content'>"+
+                             "<img src=" +records.movies[i].posterUrl+"/>"+
+                              "<h2>"+records.movies[i].title+"</h2>"+
+                             "<p><span>Release Date:</span>"+records.movies[i].releaseYear+"</p>"+
+                             "<h3><b>Rating:</b>"+records.movies[i].rating +"</h3>"+
+                            "<p><b>Description:</b>"+records.movies[i].description +"</p>"+
+                            "<p><b>Director:</b>"+records.movies[i].director +"</p>"+
+                            "<p><b>Categories:</b>"+ listAdd  +"</p>"+
+                           "</div>"+
+                            "</div>"
+                                 
+          );
+              $(".contianer").append (
+                             "<div id='prv'>"+
+                            "<p>"+records.movies[i].title+"</p>"+
+                            "<p><span>Release:</span>"+records.movies[i].releaseYear+"</p>"+
+                            "<div id='imgcont'>"+ 
+                            "<img src=" +records.movies[i].posterUrl+"/>"+
+                            "</div>"+
+                            "<button id='btnclick"+[i]+"'type='button' class='btn btn-primary'>more details..</button>"+
+                            "</div>"
+                  
+                             );
+                
+
+     i++;
+    });
+        
+        
+        });
+    
+    </script>
+
+</head>
+<body>
+    <header>
+        <h1>Movie Application</h1>
+    </header>
+    <div class="modelcon">
+        
+    </div>
+   <!-- <div id="id01" class="modal">
+    <div class="modal-content">
+              <img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg">
+             <h2>The Shawshank Redemption</h2>
+             <p><span>Release Date:</span>1994</p>
+             <h3><b>Rating:</b> 9.3</h3>
+             <p><b>Description:</b> Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.</p>
+             <p><b>Director:</b> Frank Darabont</p>
+             <p><b>Categories:</b> Drama</p>
+
+           
+            
+            </div>
+    </div>-->
+    <div class="contianer">
+    
+    </div> 
+    <script type="text/javascript">
+       $(document).ready(function(){
+           $("#btnclick0").click(function(){
+           $('#id010').modal('show'); 
+                        });
+            $("#btnclick1").click(function(){
+             $('#id011').modal('show'); 
+            });
+           $("#btnclick2").click(function(){
+             $('#id012').modal('show'); 
+            });
+           $("#btnclick3").click(function(){
+             $('#id013').modal('show'); 
+            });
+           $("#btnclick4").click(function(){
+             $('#id014').modal('show'); 
+            });
+           $("#btnclick5").click(function(){
+             $('#id015').modal('show'); 
+            });
+           $("#btnclick6").click(function(){
+             $('#id016').modal('show'); 
+            });
+           $("#btnclick7").click(function(){
+             $('#id017').modal('show'); 
+            });
+           $("#btnclick8").click(function(){
+             $('#id018').modal('show'); 
+            });
+           $("#btnclick9").click(function(){
+             $('#id019').modal('show'); 
+            });
+           });
+    </script>
+</body>
+</html>
